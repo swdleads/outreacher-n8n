@@ -1,0 +1,17 @@
+# Environment variables
+.env
+.env.*
+!.env.example
+
+# MCP config (contains API keys)
+.mcp.json
+
+# macOS
+.DS_Store
+
+# Scratch/debug scripts with hardcoded keys
+check_firecrawl.py
+check_fc_results.py
+
+# Scraped content cache
+skills/.firecrawl/
