@@ -1,0 +1,615 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Prospect Screener — Team Guide</title>
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+      color: #1a1a2e;
+      background: #f0f2f5;
+      line-height: 1.7;
+      font-size: 16px;
+    }
+
+    .container {
+      max-width: 820px;
+      margin: 0 auto;
+      padding: 40px 24px 80px;
+    }
+
+    /* Header */
+    .hero {
+      background: linear-gradient(135deg, #1a1a2e 0%, #16213e 50%, #0f3460 100%);
+      color: #fff;
+      border-radius: 16px;
+      padding: 48px 40px;
+      margin-bottom: 32px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .hero::after {
+      content: '';
+      position: absolute;
+      top: -40px;
+      right: -40px;
+      width: 200px;
+      height: 200px;
+      background: rgba(255,255,255,0.04);
+      border-radius: 50%;
+    }
+
+    .hero h1 {
+      font-size: 2rem;
+      font-weight: 700;
+      margin-bottom: 12px;
+      letter-spacing: -0.5px;
+    }
+
+    .hero p {
+      font-size: 1.1rem;
+      opacity: 0.85;
+      max-width: 600px;
+    }
+
+    /* Sections */
+    .card {
+      background: #fff;
+      border-radius: 12px;
+      padding: 32px 36px;
+      margin-bottom: 20px;
+      box-shadow: 0 1px 3px rgba(0,0,0,0.06);
+      border: 1px solid #e8eaed;
+    }
+
+    .card h2 {
+      font-size: 1.35rem;
+      font-weight: 700;
+      color: #1a1a2e;
+      margin-bottom: 16px;
+      padding-bottom: 12px;
+      border-bottom: 2px solid #e8eaed;
+    }
+
+    .card h3 {
+      font-size: 1.05rem;
+      font-weight: 600;
+      color: #0f3460;
+      margin-top: 24px;
+      margin-bottom: 10px;
+    }
+
+    .card p {
+      margin-bottom: 14px;
+      color: #333;
+    }
+
+    .card ul, .card ol {
+      margin-left: 20px;
+      margin-bottom: 14px;
+    }
+
+    .card li {
+      margin-bottom: 8px;
+      color: #333;
+    }
+
+    .card li strong {
+      color: #1a1a2e;
+    }
+
+    /* Steps */
+    .steps {
+      counter-reset: step;
+      list-style: none;
+      margin-left: 0;
+      padding-left: 0;
+    }
+
+    .steps li {
+      position: relative;
+      padding-left: 48px;
+      margin-bottom: 20px;
+      counter-increment: step;
+    }
+
+    .steps li::before {
+      content: counter(step);
+      position: absolute;
+      left: 0;
+      top: 0;
+      width: 32px;
+      height: 32px;
+      background: #0f3460;
+      color: #fff;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 700;
+      font-size: 0.85rem;
+    }
+
+    .form-link {
+      display: inline-block;
+      background: #0f3460;
+      color: #fff;
+      text-decoration: none;
+      padding: 10px 20px;
+      border-radius: 8px;
+      font-weight: 600;
+      font-size: 0.95rem;
+      transition: background 0.2s;
+    }
+
+    .form-link:hover { background: #1a1a2e; }
+
+    /* Field list */
+    .field-list {
+      list-style: none;
+      margin-left: 0;
+      padding-left: 0;
+    }
+
+    .field-list li {
+      padding: 10px 14px;
+      margin-bottom: 6px;
+      background: #f7f8fa;
+      border-radius: 8px;
+      border-left: 3px solid #0f3460;
+    }
+
+    .field-list li.optional {
+      border-left-color: #adb5bd;
+    }
+
+    .field-list .label {
+      font-weight: 600;
+      color: #1a1a2e;
+    }
+
+    .field-list .optional-tag {
+      font-size: 0.75rem;
+      color: #6c757d;
+      background: #e9ecef;
+      padding: 2px 6px;
+      border-radius: 4px;
+      margin-left: 6px;
+      vertical-align: middle;
+    }
+
+    /* Stage cards */
+    .stage {
+      border-radius: 10px;
+      padding: 20px 24px;
+      margin-bottom: 16px;
+      border: 1px solid;
+    }
+
+    .stage-1 { background: #f0fdf4; border-color: #bbf7d0; }
+    .stage-2 { background: #fefce8; border-color: #fde68a; }
+    .stage-3 { background: #fef2f2; border-color: #fecaca; }
+
+    .stage-header {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      margin-bottom: 12px;
+    }
+
+    .stage-badge {
+      font-size: 0.75rem;
+      font-weight: 700;
+      padding: 3px 10px;
+      border-radius: 20px;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+
+    .stage-1 .stage-badge { background: #22c55e; color: #fff; }
+    .stage-2 .stage-badge { background: #eab308; color: #fff; }
+    .stage-3 .stage-badge { background: #ef4444; color: #fff; }
+
+    .stage-title {
+      font-weight: 700;
+      font-size: 1.05rem;
+      color: #1a1a2e;
+    }
+
+    .stage-cost {
+      font-size: 0.8rem;
+      color: #6c757d;
+      margin-left: auto;
+    }
+
+    .stage ul {
+      margin-left: 18px;
+      margin-bottom: 0;
+    }
+
+    .stage li {
+      margin-bottom: 6px;
+      font-size: 0.95rem;
+    }
+
+    /* Rating scale */
+    .rating-scale {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 8px;
+      margin-top: 12px;
+    }
+
+    .rating-item {
+      padding: 10px 14px;
+      border-radius: 8px;
+      font-size: 0.9rem;
+    }
+
+    .rating-0 { background: #fee2e2; color: #991b1b; }
+    .rating-3 { background: #fef3c7; color: #92400e; }
+    .rating-5 { background: #dbeafe; color: #1e40af; }
+    .rating-7 { background: #dcfce7; color: #166534; }
+
+    .rating-item strong {
+      display: block;
+      font-size: 1.1rem;
+      margin-bottom: 2px;
+    }
+
+    /* Tables */
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin: 16px 0;
+      font-size: 0.92rem;
+    }
+
+    thead th {
+      background: #f7f8fa;
+      padding: 10px 14px;
+      text-align: left;
+      font-weight: 600;
+      color: #1a1a2e;
+      border-bottom: 2px solid #e8eaed;
+    }
+
+    tbody td {
+      padding: 10px 14px;
+      border-bottom: 1px solid #f0f2f5;
+      color: #333;
+    }
+
+    tbody tr:hover { background: #f9fafb; }
+
+    /* Sheet tabs */
+    .tab-group {
+      display: flex;
+      gap: 8px;
+      margin-bottom: 16px;
+    }
+
+    .tab {
+      padding: 6px 16px;
+      border-radius: 6px;
+      font-size: 0.85rem;
+      font-weight: 600;
+      cursor: default;
+    }
+
+    .tab-green { background: #dcfce7; color: #166534; }
+    .tab-red { background: #fee2e2; color: #991b1b; }
+    .tab-blue { background: #dbeafe; color: #1e40af; }
+
+    /* Tips */
+    .tip {
+      display: flex;
+      gap: 12px;
+      padding: 14px 16px;
+      background: #f7f8fa;
+      border-radius: 8px;
+      margin-bottom: 10px;
+      font-size: 0.95rem;
+    }
+
+    .tip-icon {
+      flex-shrink: 0;
+      width: 24px;
+      height: 24px;
+      background: #0f3460;
+      color: #fff;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 0.75rem;
+      font-weight: 700;
+      margin-top: 2px;
+    }
+
+    /* Slack */
+    .slack-msg {
+      background: #f7f8fa;
+      border-left: 3px solid #4a154b;
+      padding: 14px 18px;
+      border-radius: 0 8px 8px 0;
+      margin-bottom: 10px;
+      font-size: 0.95rem;
+    }
+
+    .slack-msg strong { color: #4a154b; }
+
+    /* Bouncer analogy callout */
+    .callout {
+      background: #eff6ff;
+      border: 1px solid #bfdbfe;
+      border-radius: 10px;
+      padding: 16px 20px;
+      margin: 16px 0;
+      font-size: 0.95rem;
+      color: #1e40af;
+    }
+
+    /* Reject examples */
+    .reject-examples {
+      list-style: none;
+      margin: 0;
+      padding: 0;
+    }
+
+    .reject-examples li {
+      font-family: 'SF Mono', 'Fira Code', monospace;
+      font-size: 0.85rem;
+      background: #fef2f2;
+      padding: 6px 12px;
+      border-radius: 6px;
+      margin-bottom: 4px;
+      color: #991b1b;
+    }
+
+    /* Footer */
+    .footer {
+      text-align: center;
+      padding: 32px 0 0;
+      font-size: 0.85rem;
+      color: #9ca3af;
+    }
+
+    code {
+      background: #f1f3f5;
+      padding: 2px 6px;
+      border-radius: 4px;
+      font-size: 0.9em;
+      color: #0f3460;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+
+    <!-- Hero -->
+    <div class="hero">
+      <h1>Prospect Screener</h1>
+      <p>Screen prospect lists for duplicates, spam, relevance, and gray niches before outreach. Handles up to 3,000 prospects per submission.</p>
+    </div>
+
+    <!-- What it does -->
+    <div class="card">
+      <h2>What Does This Workflow Do?</h2>
+      <p>When we're doing link building for a client, we need to find websites that are a good fit to link back to them. But before we reach out to anyone, we need to check that each prospect website is actually worth contacting.</p>
+      <p>You give it a list of prospect websites and the client's target pages, and it automatically checks every single prospect for you. It throws out the bad ones and scores the good ones based on how relevant they are to the client.</p>
+      <div class="callout">
+        Think of it like a bouncer at a club. The bouncer checks IDs, dress codes, and guest lists before letting anyone in. This workflow does the same thing — but for websites.
+      </div>
+    </div>
+
+    <!-- How to use it -->
+    <div class="card">
+      <h2>How to Use It</h2>
+      <ol class="steps">
+        <li>
+          Go to the form:<br>
+          <a href="https://outreacher.app.n8n.cloud/form/prospect-screener" class="form-link" target="_blank">Open Prospect Screener Form</a>
+        </li>
+        <li>
+          Fill in these fields:
+          <ul class="field-list" style="margin-top: 10px;">
+            <li>
+              <span class="label">Client Website</span> — The client's domain (e.g. <code>cordsclub.com</code>)
+            </li>
+            <li>
+              <span class="label">Target Pages</span> — The specific pages on the client's site you want to build links to. One URL per line.
+            </li>
+            <li>
+              <span class="label">Prospect Websites</span> — The list of websites you want to check. One domain per line. You can paste up to 3,000 at once.
+            </li>
+            <li class="optional">
+              <span class="label">Client Link Tracking Sheet</span> <span class="optional-tag">optional</span> — If the client has a Google Sheet tracking existing link placements, paste the URL here. The workflow will skip any prospects already in that sheet.
+            </li>
+            <li class="optional">
+              <span class="label">Custom Blocklist</span> <span class="optional-tag">optional</span> — Any domains you want to automatically reject. One per line.
+            </li>
+          </ul>
+        </li>
+        <li>Hit submit and wait. You'll get a Slack notification in <strong>#3-prospect-inspector</strong> when it starts and another when it finishes, along with the Google Sheet output link.</li>
+        <li>Open the Google Sheet link from the Slack message to see your results.</li>
+      </ol>
+    </div>
+
+    <!-- What happens -->
+    <div class="card">
+      <h2>What Happens Behind the Scenes</h2>
+      <p>The workflow runs prospects through three stages of checks, from cheapest to most expensive. Obviously bad prospects get eliminated early without wasting time or money on deeper analysis.</p>
+
+      <div class="stage stage-1">
+        <div class="stage-header">
+          <span class="stage-badge">Stage 1</span>
+          <span class="stage-title">Quick Checks</span>
+          <span class="stage-cost">Free &amp; instant</span>
+        </div>
+        <ul>
+          <li><strong>Self-match</strong> — Removes the client's own domain if it was accidentally included</li>
+          <li><strong>TLD filter</strong> — Removes domains with non-English country-specific extensions (like <code>.ru</code>, <code>.cn</code>, <code>.com.mx</code>)</li>
+          <li><strong>Vetting Tracker</strong> — Removes domains we've already vetted in past campaigns</li>
+          <li><strong>Link Tracking</strong> — Removes domains that already have an active link placement with the client</li>
+          <li><strong>Custom Blocklist</strong> — Removes any domains you specifically listed as blocked</li>
+        </ul>
+      </div>
+
+      <div class="stage stage-2">
+        <div class="stage-header">
+          <span class="stage-badge">Stage 2</span>
+          <span class="stage-title">Deeper Check</span>
+          <span class="stage-cost">1 API call</span>
+        </div>
+        <ul>
+          <li><strong>Already Linking</strong> — Checks if the prospect already has a backlink pointing to the client's site. If they do, there's no need to reach out — they're already linking.</li>
+        </ul>
+      </div>
+
+      <div class="stage stage-3">
+        <div class="stage-header">
+          <span class="stage-badge">Stage 3</span>
+          <span class="stage-title">Content Analysis</span>
+          <span class="stage-cost">Per prospect, in batches of 50</span>
+        </div>
+        <ul>
+          <li><strong>Gray Niche Detection</strong> — Scans each prospect for outbound links to gambling, adult, or shady websites. A news article <em>about</em> gambling doesn't count — only actual outbound <em>links</em> to those sites.</li>
+          <li><strong>Website Description</strong> — AI reads the prospect's homepage and writes a short summary of what the site is about.</li>
+          <li><strong>Relevance Rating</strong> — AI compares the prospect to the client's target pages and picks the best match, giving a score from 0 to 10.</li>
+        </ul>
+        <div class="rating-scale">
+          <div class="rating-item rating-0"><strong>0</strong> Completely unrelated<br><em>A cooking blog for a car parts client</em></div>
+          <div class="rating-item rating-3"><strong>3–4</strong> Loose connection<br><em>A lifestyle site for a fashion client</em></div>
+          <div class="rating-item rating-5"><strong>5–6</strong> Decent overlap<br><em>A men's style blog for a clothing brand</em></div>
+          <div class="rating-item rating-7"><strong>7–10</strong> Strong match<br><em>A fabric care blog for a corduroy company</em></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- What you get back -->
+    <div class="card">
+      <h2>What You Get Back</h2>
+      <p>The workflow creates a Google Sheet with three tabs:</p>
+
+      <div class="tab-group">
+        <span class="tab tab-green">Passed Prospects</span>
+        <span class="tab tab-red">Reject Sites</span>
+        <span class="tab tab-blue">Summary</span>
+      </div>
+
+      <h3>Passed Prospects</h3>
+      <p>Websites that made it through all three stages, sorted by relevance rating (highest first).</p>
+      <table>
+        <thead>
+          <tr><th>Column</th><th>What It Means</th></tr>
+        </thead>
+        <tbody>
+          <tr><td>Prospect Website</td><td>The domain that passed</td></tr>
+          <tr><td>Relevance Rating</td><td>Score from 0–10</td></tr>
+          <tr><td>Target Page</td><td>Which client page is the best match</td></tr>
+          <tr><td>Target Topics</td><td>What that target page is about</td></tr>
+          <tr><td>Target Source</td><td>How we got the target page info</td></tr>
+          <tr><td>Prospect Description</td><td>AI-written summary of the prospect site</td></tr>
+          <tr><td>Justification</td><td>Why the AI gave that relevance score</td></tr>
+          <tr><td>Prospect Description Source</td><td>How we got the prospect info</td></tr>
+        </tbody>
+      </table>
+
+      <h3>Reject Sites</h3>
+      <p>Every prospect that got removed, along with the reason. Examples:</p>
+      <ul class="reject-examples">
+        <li>TLD blocked: .ru</li>
+        <li>Found in Vetting Tracker</li>
+        <li>Already linking to client</li>
+        <li>Gray Niche (outbound links to gambling/adult content)</li>
+      </ul>
+
+      <h3>Summary</h3>
+      <p>A stage-by-stage breakdown showing how many prospects were removed at each step and how many survived. Useful for understanding why a large batch got narrowed down.</p>
+    </div>
+
+    <!-- How long -->
+    <div class="card">
+      <h2>How Long Does It Take?</h2>
+      <table>
+        <thead>
+          <tr><th>Prospects Submitted</th><th>Approximate Time</th></tr>
+        </thead>
+        <tbody>
+          <tr><td>10–50</td><td>1–2 minutes</td></tr>
+          <tr><td>100–200</td><td>5–10 minutes</td></tr>
+          <tr><td>500</td><td>15–20 minutes</td></tr>
+          <tr><td>1,000</td><td>20–30 minutes</td></tr>
+          <tr><td>3,000</td><td>30–45 minutes</td></tr>
+        </tbody>
+      </table>
+      <p>Most of the time is spent in Stage 3 (fetching and analyzing each prospect website). Stages 1 and 2 usually finish in under 30 seconds regardless of how many prospects you submit.</p>
+    </div>
+
+    <!-- Cost -->
+    <div class="card">
+      <h2>Cost Per Run</h2>
+      <table>
+        <thead>
+          <tr><th>Prospects</th><th>Firecrawl</th><th>OpenAI</th><th>DataForSEO</th><th>Total</th></tr>
+        </thead>
+        <tbody>
+          <tr><td>50</td><td>~$0.10</td><td>~$0.01</td><td>~$0.10</td><td><strong>~$0.21</strong></td></tr>
+          <tr><td>500</td><td>~$1.00</td><td>~$0.05</td><td>~$0.10</td><td><strong>~$1.15</strong></td></tr>
+          <tr><td>3,000</td><td>~$4.00</td><td>~$0.30</td><td>~$0.10</td><td><strong>~$4.40</strong></td></tr>
+        </tbody>
+      </table>
+      <p>Stage 1 and 2 filtering happens before any expensive API calls, so if most of your prospects get filtered early, the cost goes down.</p>
+    </div>
+
+    <!-- Tips -->
+    <div class="card">
+      <h2>Tips</h2>
+      <div class="tip">
+        <div class="tip-icon">1</div>
+        <div><strong>Paste more, not less.</strong> It's cheap to filter out bad prospects, so don't pre-filter your list manually. Let the workflow do it.</div>
+      </div>
+      <div class="tip">
+        <div class="tip-icon">2</div>
+        <div><strong>Use the Link Tracking Sheet field</strong> if the client has one. It prevents you from reaching out to sites that already have a placement.</div>
+      </div>
+      <div class="tip">
+        <div class="tip-icon">3</div>
+        <div><strong>Check the Reject Sites tab</strong> after a run. If you see prospects getting rejected for the wrong reasons, let us know so we can tune the filters.</div>
+      </div>
+      <div class="tip">
+        <div class="tip-icon">4</div>
+        <div><strong>Relevance scores are guidelines, not gospel.</strong> A score of 3 doesn't mean "never contact." It means the AI thinks the connection is loose. Use your judgment.</div>
+      </div>
+    </div>
+
+    <!-- Slack -->
+    <div class="card">
+      <h2>Slack Notifications</h2>
+      <p>You'll receive two messages in <strong>#3-prospect-inspector</strong> per run:</p>
+      <div class="slack-msg">
+        <strong>Start</strong> — Confirms the run kicked off, shows the client name, number of prospects, and a link to the Google Sheet.
+      </div>
+      <div class="slack-msg">
+        <strong>Completion</strong> — Shows how many prospects passed vs. got rejected, with a breakdown by rejection reason.
+      </div>
+    </div>
+
+    <!-- Questions -->
+    <div class="card">
+      <h2>Questions?</h2>
+      <p>If something looks wrong or a run fails, reach out to Scott.</p>
+    </div>
+
+    <div class="footer">
+      Prospect Screener &middot; Outreacher
+    </div>
+
+  </div>
+</body>
+</html>
