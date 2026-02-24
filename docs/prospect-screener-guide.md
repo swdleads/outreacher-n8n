@@ -47,7 +47,7 @@ These are fast, automatic filters that don't cost anything:
 
 ### Stage 3 — Content Analysis (Per Prospect, in Batches)
 
-This is where the real work happens. Prospects that survived Stages 1 and 2 get analyzed in batches of 50:
+This is where the real work happens. Prospects that survived Stages 1 and 2 get analyzed in batches of 10:
 
 - **Gray Niche Detection** — The workflow scans each prospect's site for outbound links to gambling, adult, or other shady websites. If a site links out to those kinds of places, it gets rejected. (Note: a news article *about* gambling doesn't count — only actual outbound *links* to those sites.)
 
